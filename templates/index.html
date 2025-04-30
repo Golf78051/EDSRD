@@ -1,1 +1,31 @@
-...
+...<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>EXP 檔案處理與 Power Trace</title>
+</head>
+<body>
+    <h2>EXP 處理工具</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        <label for="expfile">請選擇 .EXP 檔案：</label>
+        <input type="file" name="expfile" required><br><br>
+
+        <label for="depth">最大追蹤層數：</label>
+        <input type="number" name="depth" value="5" required><br><br>
+
+        <label for="source_nets">輸入源頭 Net（以逗號分隔）：</label>
+        <input type="text" name="source_nets" value="+12V_DCIN,+5V_IN,+3.3V_AUX,VBAT" size="50" required><br><br>
+
+        <button type="submit">執行分析</button>
+    </form>
+
+    {% if summary_file and trace_file %}
+        <h3>下載結果：</h3>
+        <ul>
+            <li><a href="{{ url_for('download_file', filename=summary_file) }}">下載 Summary 結果</a></li>
+            <li><a href="{{ url_for('download_file', filename=trace_file) }}">下載追蹤詳細記錄</a></li>
+        </ul>
+    {% endif %}
+</body>
+</html>
