@@ -6,13 +6,17 @@ from openpyxl.styles import Font, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl import Workbook
 
+
 def clean_illegal_chars(val):
     if isinstance(val, str):
         return re.sub(r'[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]', '', val)
     return val
 
+
 def process_exp_and_trace(exp_file_path, max_depth, source_input, output_folder):
     output_file = os.path.join(output_folder, "Exp_Processed.xlsx")
+    summary_path = os.path.join(output_folder, "No power source net.xlsx")
+    trace_path = os.path.join(output_folder, "Power_Trace_Detail.xlsx")
 
     # ========== Part 1: EXP to Excel ==========
     with open(exp_file_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -53,9 +57,10 @@ def process_exp_and_trace(exp_file_path, max_depth, source_input, output_folder)
     new_df = pd.DataFrame(new_rows)
     new_df.to_excel(output_file, index=False)
 
-    # ========== Part 2: Power Trace（略，請依照原程式貼入） ==========
-    summary_path = os.path.join(output_folder, "No power source net.xlsx")
-    trace_path = os.path.join(output_folder, "Power_Trace_Detail.xlsx")
-    # （請把你原本第二部分貼到這裡，並將input_file改為output_file，summary_output_file與tracking_output_file改為summary_path和trace_path）
+    # ========== Part 2: 呼叫外部追蹤邏輯（由原程式邏輯整合而來） ==========
+    import subprocess
+    import sys
+    subprocess.run([sys.executable, os.path.join(os.path.dirname(__file__), "power_trace_core.py"), 
+                    output_file, str(max_depth), source_input, summary_path, trace_path])
 
     return summary_path, trace_path
