@@ -1,42 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>EXP 差異比對工具</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2rem; background-color: #f2f2f2; }
-        .container { background: white; padding: 2rem; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        label { display: block; margin-top: 1rem; }
-        input[type="file"] { margin-top: 0.5rem; }
-        button { margin-top: 2rem; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        .checkbox { margin-top: 1rem; }
-    </style>
 </head>
 <body>
-<div class="container">
     <h2>EXP 差異比對工具</h2>
-    <form method="post" enctype="multipart/form-data">
-        <label for="exp1">上傳舊版 EXP 檔案：</label>
-        <input type="file" name="exp1" required>
+    <form method="POST" enctype="multipart/form-data">
+        <label>上傳舊版 EXP 檔案：</label>
+        <input type="file" name="file1" required><br><br>
 
-        <label for="exp2">上傳新版 EXP 檔案：</label>
-        <input type="file" name="exp2" required>
+        <label>上傳新版 EXP 檔案：</label>
+        <input type="file" name="file2" required><br><br>
 
-        <label for="primary_key">選擇主鍵欄位（建議：ID）：</label>
+        <label>選擇主鍵欄位：</label>
         <select name="primary_key" required>
             <option value="ID">ID</option>
             <option value="Part Reference">Part Reference</option>
             <option value="Net Name">Net Name</option>
-        </select>
+        </select><br><br>
 
-        <div class="checkbox">
-            <input type="checkbox" id="ignore_case" name="ignore_case">
-            <label for="ignore_case">忽略大小寫與空白</label>
-        </div>
+        <input type="checkbox" name="ignore_case"> 忽略大小寫與空白<br><br>
 
-        <button type="submit">執行比對並下載報告</button>
+        <input type="submit" value="執行比對並下載報告">
     </form>
-</div>
 </body>
 </html>
