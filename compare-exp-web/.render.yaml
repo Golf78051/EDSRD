@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: compare-exp-web
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
+    rootDir: compare-exp-web
